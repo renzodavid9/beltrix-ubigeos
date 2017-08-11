@@ -35,11 +35,11 @@ export class LocationsService {
             
             //Se crea departamento
             if (values[0].trim().length > 0){
-                let newDepartment = this.createDepartment(values[0].trim());
+                let department = this.createDepartment(values[0].trim());
                 
                 //Se crea provincia
                 if (values[1].trim().length > 0){
-                    this.createProvince(values[1].trim());
+                    let province = this.createProvince(values[1].trim(),department);
 
                     //Se crea distrito
                     if (values[2].trim().length > 0){
@@ -63,8 +63,19 @@ export class LocationsService {
         return this.departments.get(code);
     }
 
-    private createProvince(data: string): Province{
-
+    private createProvince(data: string, department: Department): Province{
+        let code : number = Number(this.getValue(data,0));
+        let newProvince: Province;
+        if (!this.pronvinces.has(code)){
+            newProvince = new Province();
+            newProvince.code = code;
+            newProvince.name = this.getValue(data,1);
+            newProvince.father = department;
+            this.pronvinces.set(code,newProvince);
+        }
+        newProvince = this.pronvinces.get(code);
+        department.addProvince(newProvince);
+        return newProvince;
     }
 
     private createDistrict(data: string): District{
