@@ -13,7 +13,13 @@ var locations_service_1 = require("../services/locations.service");
 var MyFileReaderComponent = (function () {
     function MyFileReaderComponent(locationsService) {
         this.locationsService = locationsService;
+        //Emiter para avisar al componente padre cuando se han cargado los ubigeos y poder refrescar las tablas donde se muestran
+        this.onLoad = new core_1.EventEmitter();
     }
+    /**
+     * Método que se usa cuando se carga un archivo por el input type file. Agarra le archivo de entrada y lo envía al servicio para
+     * construir los ubigeos
+     */
     MyFileReaderComponent.prototype.loadFile = function (event) {
         //Se obtiene el archivo de texto
         var file = event.target.files[0];
@@ -24,20 +30,33 @@ var MyFileReaderComponent = (function () {
             reader.onload = this.parseInputFile.bind(this);
         }
     };
+    //Método que se dispara cuando se ha podido leer exitosamente el archivo
     MyFileReaderComponent.prototype.parseInputFile = function (event) {
         //Se obtiene el valor del archivo plano
         var data = event.target.result;
-        //Se envía al servicio para que lo interprete y construya mapa de ubigeos
-        this.locationsService.initializeLocations(data);
+        try {
+            //Se envía al servicio para que lo interprete y construya mapa de ubigeos
+            this.locationsService.initializeLocations(data);
+            console.log(this.locationsService.getDepartments());
+            //Se cambia valor para avisar que se ha cargado el archivo exitosamente
+            this.onLoad.emit(true);
+        }
+        catch (e) {
+            alert("Ocurrio un error cargando el archivo. Por favor verifique la extensión y formato de este.");
+            this.onLoad.emit(false);
+        }
     };
     return MyFileReaderComponent;
 }());
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", Object)
+], MyFileReaderComponent.prototype, "onLoad", void 0);
 MyFileReaderComponent = __decorate([
     core_1.Component({
         selector: 'my-file-reader',
         templateUrl: './my-file-reader.component.html',
-        styleUrls: ['./my-file-reader.component.css'],
-        providers: [locations_service_1.LocationsService],
+        styleUrls: ['app/my-file-reader/my-file-reader.component.css'],
     }),
     __metadata("design:paramtypes", [locations_service_1.LocationsService])
 ], MyFileReaderComponent);

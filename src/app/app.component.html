@@ -1,14 +1,36 @@
+<div class="main-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="text-center">Lector de Ubigeos</h1>
+                <p class="text-center">Por Renzo D. Rojas Silva</p>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <h1>File reader</h1>
+            <h3 class="main-description">Bienvenido al lector de ubigeos. Siga las instrucciones indicadas para poder cargar los ubigeos que desea visualizar.</h3>
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12">
-            <my-file-reader></my-file-reader>
+        <div class="col-xs-12 col-sm-5">
+            <my-file-reader (onLoad)="onLoad($event)"></my-file-reader>
         </div>
-        <div class="col-xs-12">
+        <div class="col-xs-12 col-sm-7">
+            <div class="tables-container">
+                <location-table [title]="'Departamento'" [locations]="department"></location-table>
+                <location-table [title]="'Provincia'" [locations]="province"></location-table>
+                <location-table [title]="'Distrito'" [locations]="district"></location-table>
+
+                <div class="empty-tables" *ngIf="department == null && province == null && district == null">
+                    <div class="empty-tables-description-container">
+                        <h2 class="text-center">Seleccione un archivo en el formato adecuado para visualizar los ubigeos correspondientes</h2>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>

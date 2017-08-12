@@ -10,6 +10,8 @@ var platform_browser_1 = require("@angular/platform-browser");
 var app_component_1 = require("./app.component");
 var forms_1 = require("@angular/forms");
 var my_file_reader_component_1 = require("./my-file-reader/my-file-reader.component");
+var location_table_component_1 = require("./location-table/location-table.component");
+var location_map_values_pipe_1 = require("./pipes/location-map-values.pipe");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -20,7 +22,9 @@ AppModule = __decorate([
         imports: [platform_browser_1.BrowserModule,
             forms_1.FormsModule],
         declarations: [app_component_1.AppComponent,
-            my_file_reader_component_1.MyFileReaderComponent],
+            my_file_reader_component_1.MyFileReaderComponent,
+            location_table_component_1.LocationTableComponent,
+            location_map_values_pipe_1.LocationMapValuesPipe],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

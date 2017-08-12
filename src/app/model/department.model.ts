@@ -1,27 +1,22 @@
 import { Province } from './province.model';
+import { BaseLocation } from './base-location.model';
 
-export class Department{
-    private _code: number;
-    private _name: string;
-    private provinces: Map<number, Province>;
+/**
+ * Clase que representa un Departamento, hereda de BaseLocation para obtener los atributos básicos de un ubigeo
+ */
+export class Department extends BaseLocation{
+    //Mapa de provincias hijas 
+    private _provinces: Map<string, Province>;
 
-    public get code():number{
-        return this._code;
+    constructor(){
+        super();
+        this._provinces = new Map<string,Province>();
     }
 
-    public set code(newCode: number){
-        this._code = newCode;
-    }
-
-    get name():string{
-        return this._name;
-    }
-
-    set name(name: string){
-        this._name = name;
-    }
-
-    addProvince(province: Province): void{
-
+    //Método para anadir una provincia hija
+    public addProvince(province: Province): void{
+        if (!this._provinces.has(province.code)){
+            this._provinces.set(province.code,province);
+        }
     }
 }

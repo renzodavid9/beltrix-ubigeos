@@ -1,3 +1,14 @@
-<form>
-    <input type="file" accept=".txt" (change)="loadFile($event)">
-</form>
+<div class="file-reader-container">
+    <form>
+        <div class="explanation-p">
+            <p>Por favor seleccione el archivo (.txt) con el formato adecuado para cargar los ubigeos</p>
+        </div>
+        <label class="file-reader-label">
+            <input type="file" accept=".txt" (change)="loadFile($event)" class="hidden">
+            <div class="container-icon">
+                <span class="fa fa-upload icon"></span>
+                <span>Haga clic acá para seleccionar el archivo</span>
+            </div>
+        </label>
+    </form>
+</div>
